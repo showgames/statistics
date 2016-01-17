@@ -6,3 +6,11 @@ amino.prcomp <- function(path)
   
   return(result)
 }
+
+# 主成分分析の結果の概要を表示する関数
+print.result.pca <- function(result)
+{
+  print(round(result$rotation, 3)) # 固有ベクトル(主成分軸の係数)
+  print(round(result$x, 3))        # 主成分得点
+}
+
