@@ -3,52 +3,58 @@ path1 <- "~/Desktop/aminoacids_analysis1.txt"
 path2 <- "~/Desktop/aminoacids_analysis2.txt"
 path3 <- "~/Desktop/aminoacids_analysis3.txt"
 
-# アミノ酸濃度の平均を読み込む関数
-# ------------------------
+# 各アミノ酸の定義
+amino_acids <- c("His", "Arg", "Asn", "Gln", "Ser", "Asp", "Glu", "Thr", "Pro", "Gly", "Ala", "Val", "Met", "Leu", "Ile",
+           "Cys2", "Phe", "Lys", "Tyr")
+
+# 通し番号
+min <- 1   # ファイルによってここを変更する
+max <- 11  # ファイルによってここを変更する
+first_number <- c(min:max)
+second_number <- c(1, 2, 3)  # ここも変更する可能性がある(サンプルの種類によって)
+
+
+# アミノ酸の平均濃度を読み込む関数
+# --------------------------------
 # 入力: ファイルパス
 # 出力: 読み込みデータ
-# ------------------------
+# --------------------------------
 read.mean <- function(path)
 {
   data <- read.table(path, header = T)
   return(data)
 }
 
-# 平均に近いアミノ酸濃度を指定された個数分だけ生成する関数
-# -------------------------------------------------
-# 入力1: ある種類のアミノ酸濃度の平均(1種類のみ)
-# 入力2: 生成する個数
-# 出力:  入力2で指定された長さのベクトル
-# -------------------------------------------------
-create.vector <- function(average, num)
+# 1サンプルのデータを作成する関数(19種類のアミノ酸のデータ)
+# ---------------------------------------------------------
+# 入力: 外部から読み込んだデータ(19種類のアミノ酸の平均濃度のデータ。サンプルの種類は問わない。)
+# 出力: 19種類のアミノ酸濃度のデータ
+# ---------------------------------------------------------
+create.data <- function(data)
 {
-  vector <- rnorm(num, mean = average, sd = 4)
+  vec <- c(1:19)
   
-  for (i in 1:length(vector))
+  for (i in 1:length(data))
   {
-    if (vector[i] < 0)
+    vec[i] <- rnorm(1, mean = data[, i], sd = 2.5)
+    if (vec[i] < 0) vec[i] <- 0
+  }
+  
+  return(vec)
+}
+
+# データをすべて作成する関数(19種類のアミノ酸のデータ * サンプル数)
+# 入力: 外部から読み込んだデータすべて
+# 出力: csvファイルとして出力
+create.all.data <- function(data)
+{
+  for (i in 1:length(first_number))
+  {
+    for (j in 1:length(second_number))
     {
-      vector[i] <- 0
+      vector <- create.data(data[j,])
+      print(vector)
     }
   }
-  return(vector)
 }
-
-# テスト1
-rep1 <- function(x, average, num)
-{
-  for (i in 1:x)
-  {
-    print(rnorm(num, mean = average, sd = 4))
-  }
-}
-
-# テスト2
-rep2 <- function(x, average, num)
-{
-  for (i in 1:x)
-  {
-    print(create.vector(average, num))
-  }
-}
-
+  
