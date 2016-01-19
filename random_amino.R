@@ -8,10 +8,14 @@ amino_acids <- c("His", "Arg", "Asn", "Gln", "Ser", "Asp", "Glu", "Thr", "Pro", 
            "Cys2", "Phe", "Lys", "Tyr")
 
 # 通し番号
-min <- 1   # ファイルによってここを変更する
+min <- 1   
 max <- 11  # ファイルによってここを変更する
 first_number <- c(min:max)
 second_number <- c(1, 2, 3)  # ここも変更する可能性がある(サンプルの種類によって)
+
+# 乱数を生成させる際の標準偏差
+sd_value = 10
+
 
 
 # アミノ酸の平均濃度を読み込む関数
@@ -36,7 +40,7 @@ create.data <- function(data)
   
   for (i in 1:length(data))
   {
-    vec[i] <- rnorm(1, mean = data[, i], sd = 2.5)
+    vec[i] <- rnorm(1, mean = data[, i], sd = sd_value)
     if (vec[i] < 0) vec[i] <- 0
   }
   
@@ -44,17 +48,45 @@ create.data <- function(data)
 }
 
 # データをすべて作成する関数(19種類のアミノ酸のデータ * サンプル数)
+# -----------------------------------------------------------------
 # 入力: 外部から読み込んだデータすべて
-# 出力: csvファイルとして出力
+# 出力: 行列を出力
+# -----------------------------------------------------------------
 create.all.data <- function(data)
 {
+  # 行列の用意
+  datas <- matrix(0, max * nrow(data), ncol(data))
+  colnames(datas) <- amino_acids
+  sample_number <- rep(" ", length = length(first_number) * length(second_number))
+  s <- 1
+  for (i in first_number)
+  {
+    for (j in second_number)
+    {
+     sample_number[s] <- paste(first_number[i], second_number[j], sep = "_")
+     s <- s + 1
+    }
+  }
+  rownames(datas) <- sample_number
+  
+  
+  # 行列にデータを挿入
+  n <- 1
   for (i in 1:length(first_number))
   {
     for (j in 1:length(second_number))
     {
-      vector <- create.data(data[j,])
-      print(vector)
+      datas[n,] <- create.data(data[j,])
+      n <- n + 1
     }
   }
+  return(datas)
 }
-  
+
+do.crime <- function(path_1, path_2)
+{
+  data <- read.mean(path_1)
+  result <- create.all.data(data)
+  print(result)
+  write.table(result, file = path_2)
+}
