@@ -1,9 +1,11 @@
 
 mypca <- function() {
   
-  Mydir = "~/Desktop/PCA"
-  Mydat = "a.txt"
-  Mycla = c("A", "B", "C")
+  Mydir = "~/Desktop/PCA/1508shibushi"
+  Mydat = "1508amino.txt"
+  Mycla = c("8:00", "8:00", "8:00", "13:00", "13:00", "13:00",
+            "16:00", "16:00", "16:00", "24:00", "24:00", "24:00",
+            "spawn", "spawn", "spawn")
   
   # set your working directory
   setwd(Mydir)
@@ -25,3 +27,5 @@ mypca <- function() {
   # you can confirm dat.pca object
   return(dat.pca)
 }
+
+result <- mypca()
