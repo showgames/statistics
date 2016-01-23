@@ -1,7 +1,7 @@
 # ファイルパス
-path1 <- "~/Desktop/aminoacids_analysis1.txt"
-path2 <- "~/Desktop/aminoacids_analysis2.txt"
-path3 <- "~/Desktop/aminoacids_analysis3.txt"
+path1 <- "~/Desktop/PCA/14shibushi/aminoacids_analysis1.txt"
+path2 <- "~/Desktop/PCA/14shibushi/aminoacids_analysis2.txt"
+path3 <- "~/Desktop/PCA/14shibushi/aminoacids_analysis3.txt"
 
 # 各アミノ酸の定義
 amino_acids <- c("His", "Arg", "Asn", "Gln", "Ser", "Asp", "Glu", "Thr", "Pro", "Gly", "Ala", "Val", "Met", "Leu", "Ile",
@@ -83,7 +83,7 @@ create.all.data <- function(data)
   return(datas)
 }
 
-do.crime <- function(path_1, path_2)
+do.cri <- function(path_1, path_2)
 {
   data <- read.mean(path_1)
   result <- create.all.data(data)
