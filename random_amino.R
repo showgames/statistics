@@ -88,5 +88,5 @@ do.cri <- function(path_1, path_2)
   data <- read.mean(path_1)
   result <- create.all.data(data)
   print(result)
-  write.table(result, file = path_2)
+  write.csv(result, file = path_2)
 }

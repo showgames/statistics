@@ -3,9 +3,6 @@ mypca <- function() {
   
   Mydir = "~/Desktop/PCA/1508shibushi"
   Mydat = "1508amino.txt"
-  Mycla = c("8:00", "8:00", "8:00", "13:00", "13:00", "13:00",
-            "16:00", "16:00", "16:00", "24:00", "24:00", "24:00",
-            "spawn", "spawn", "spawn")
   
   # set your working directory
   setwd(Mydir)
@@ -17,11 +14,11 @@ mypca <- function() {
   dat <- read.table(Mydat)
   
   # PCA
-  dat.pca <- prcomp(dat, scale. = TRUE)
+  dat.pca <- prcomp(dat[-1], scale. = TRUE)
   
   # plot
   print(ggbiplot(dat.pca, obs.scale = 1,
-                 var.scale = 1, groups = Mycla,
+                 var.scale = 1, groups = dat[,1],
                  ellipse = TRUE, circle = TRUE))
   
   # you can confirm dat.pca object
