@@ -9,12 +9,12 @@ amino_acids <- c("His", "Arg", "Asn", "Gln", "Ser", "Asp", "Glu", "Thr", "Pro", 
 
 # 通し番号
 min <- 1   
-max <- 11  # ファイルによってここを変更する
+max <- 17  # ファイルによってここを変更する
 first_number <- c(min:max)
 second_number <- c(1, 2, 3)  # ここも変更する可能性がある(サンプルの種類によって)
 
 # 乱数を生成させる際の標準偏差
-sd_value = 10
+sd_value = 20.34
 
 
 
@@ -85,8 +85,9 @@ create.all.data <- function(data)
 
 do.cri <- function(path_1, path_2)
 {
+  set.seed(268)
   data <- read.mean(path_1)
   result <- create.all.data(data)
   print(result)
-  write.csv(result, file = path_2)
+  write.table(result, file = path_2)
 }
