@@ -19,9 +19,9 @@ myAlign <- function () {
   ### Set your working directory under Windows, where your netCDF files are stored
   ### Organize samples in subdirectories according to their class names WT/GM, Sick/Healthy etc.
   ### Important: use "/" not "\" 
-  myDir = "~/Desktop/covssp2"
-  myClass1 = "co"
-  myClass2 = "sp"
+  myDir = "~/Desktop/mzXML/lcms1508shibushi/control_vs_spawn"
+  myClass1 = "control"
+  myClass2 = "spawn"
   myResultDir = "myAlign"
   ### +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
@@ -67,7 +67,12 @@ myAlign <- function () {
   xset3
   
   ### create report and save the result in EXCEL file, print 20 important peaks as PNG 
-  reporttab <- diffreport(xset3, myClass1, myClass2, myResultDir, 20, metlin = 0.15)
+  reporttab <- diffreport(xset3, myClass1, myClass2, myResultDir, 20, metlin = 0.15, mzdec = 4)
+  
+  ### save the data to CSV file
+  dat <- groupval(xset3, "medret", "into")
+  dat <- rbind(group = as.character(phenoData(xset3)$class), dat)
+  write.csv(dat, file="MyPeakTable.csv")
   
   ### print file names
   # dir(path = ".", pattern = NULL, all.files = FALSE, full.names = FALSE, recursive = FALSE)
