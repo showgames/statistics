@@ -19,7 +19,7 @@ myAlign <- function () {
   ### Set your working directory under Windows, where your netCDF files are stored
   ### Organize samples in subdirectories according to their class names WT/GM, Sick/Healthy etc.
   ### Important: use "/" not "\" 
-  myDir = "~/Desktop/mzXML/lcms1508shibushi/control_vs_spawn"
+  myDir = "~/Desktop/xcms"
   myClass1 = "control"
   myClass2 = "spawn"
   myResultDir = "myAlign"
